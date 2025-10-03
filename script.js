@@ -554,15 +554,25 @@ class PrivacyController {
     
     showNotice() {
         setTimeout(() => {
+            this.notice.hidden = false;
             this.notice.classList.add('visible');
-            this.notice.setAttribute('aria-hidden', 'false');
+            // Set focus trap
+            this.lastFocusedElement = document.activeElement;
+            const acceptButton = document.getElementById('accept-privacy');
+            if (acceptButton) {
+                acceptButton.focus();
+            }
         }, 1000);
     }
     
     acceptPrivacy() {
         this.setPrivacyConsent(true);
         this.notice.classList.remove('visible');
-        this.notice.setAttribute('aria-hidden', 'true');
+        this.notice.hidden = true;
+        // Restore focus
+        if (this.lastFocusedElement) {
+            this.lastFocusedElement.focus();
+        }
     }
     
     getPrivacyConsent() {
