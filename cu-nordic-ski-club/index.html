@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CU Nordic Ski Club | University of Colorado Boulder</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="site-header">
+        <nav class="main-nav" role="navigation" aria-label="Main navigation">
+            <div class="nav-brand">
+                <img src="images/cu-logo.png" alt="University of Colorado Boulder Logo" class="cu-logo">
+                <div class="brand-text">
+                    <h1>Nordic Ski Club</h1>
+                    <p class="subtext">University of Colorado Boulder</p>
+                </div>
+            </div>
+            
+            <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="skiing.html">Skiing</a></li>
+                <li><a href="join.html">Join the Club</a></li>
+                <li><a href="support.html">Support</a></li>
+                <li><a href="team.html">Meet the Team</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section - Inclusive Community -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h2>Welcome to CU Nordic Ski Club</h2>
+                        <p>The CU Nordic Ski Club is an inclusive community that welcomes skiers of all levels and backgrounds. Whether you're a seasoned racer or just curious about cross-country skiing, we provide a supportive environment where everyone can pursue their passion for Nordic skiing. Our club emphasizes both competitive excellence and recreational enjoyment, creating opportunities for personal growth, friendship, and adventure in the beautiful Colorado mountains.</p>
+                        <p>We believe that Nordic skiing is for everyone, and our diverse membership reflects that commitment. From structured training sessions to casual weekend outings, we offer programs that cater to various interests and skill levels. Join us to discover the joy of gliding through snow-covered trails and become part of a vibrant skiing community.</p>
+                    </div>
+                    <div class="hero-image">
+                        <img src="images/skier-cu-snow.jpg" alt="Skier gliding past CU Boulder drawn in snow" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community Banner -->
+        <section class="community-banner">
+            <div class="container">
+                <div class="banner-content">
+                    <h2 class="banner-title">A Community of Ski Enthusiasts</h2>
+                    <div class="banner-images">
+                        <img src="images/racing-skier.jpg" alt="Nordic ski racers competing" class="banner-img-1" loading="lazy">
+                        <img src="images/leisure-skiing.jpg" alt="Skiers enjoying a leisurely trail" class="banner-img-2" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Section -->
+        <section class="video-section">
+            <div class="video-container">
+                <video controls poster="images/video-poster.jpg" aria-label="Nordic skiers skiing down a mountain">
+                    <source src="videos/skiing-action.mp4" type="video/mp4">
+                    <track kind="captions" src="captions/skiing-action.vtt" srclang="en" label="English">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <div class="footer-info">
+                <h3>Contact Us</h3>
+                <ul class="contact-list">
+                    <li>
+                        <span class="contact-label">Email:</span>
+                        <a href="mailto:nordicskiclub@colorado.edu">nordicskiclub@colorado.edu</a>
+                    </li>
+                    <li>
+                        <span class="contact-label">Address:</span>
+                        <span>2055 Regent Dr, Boulder, CO 80309, USA</span>
+                    </li>
+                    <li>
+                        <span class="contact-label">Instagram:</span>
+                        <a href="https://instagram.com/cunordicskiclub" target="_blank" rel="noopener noreferrer">@cunordicskiclub</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-logo">
+                <img src="images/club-logo.png" alt="CU Nordic Ski Club Logo - Black and gold graphic of a skating skier" loading="lazy">
+            </div>
+        </div>
+    </footer>
+
+    <!-- Privacy Notice -->
+    <div id="privacy-notice" class="privacy-notice" role="dialog" aria-labelledby="privacy-title" aria-hidden="true">
+        <div class="privacy-content">
+            <h3 id="privacy-title">Your Privacy Matters</h3>
+            <p>This website uses browser storage to remember your preferences and improve your experience. We collect:</p>
+            <ul>
+                <li>Your navigation preferences (menu state)</li>
+                <li>Form data you choose to save</li>
+                <li>Your consent preferences</li>
+            </ul>
+            <p>All data is stored locally on your device and is never sent to external servers. You have full control over your data.</p>
+            <div class="privacy-actions">
+                <button id="accept-privacy" class="btn btn-primary">Accept</button>
+                <button id="view-privacy" class="btn btn-secondary">View Full Privacy Statement</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
