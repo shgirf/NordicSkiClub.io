@@ -142,7 +142,7 @@ button:focus-visible {
 }
 
 .cu-logo {
-    height: 60px;
+    height: 90px;
     width: auto;
 }
 
@@ -243,13 +243,14 @@ button:focus-visible {
 .hero-section {
     background-color: var(--cu-white);
     padding: var(--spacing-sm) 0;
-    min-height: calc(80vh - 80px);
+    min-height: calc(90vh - 90px);
     display: flex;
     align-items: center;
 }
 
 .hero-content {
-    display: flex;
+    display: grid;
+    grid-template-columns: 45% 55%;
     gap: var(--spacing-lg);
     align-items: center;
 }
@@ -278,8 +279,10 @@ button:focus-visible {
 
 .hero-image img {
     width: 100%;
+    height: calc(85vh - 90px);
+    object-fit: cover;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 /* Community Banner */
@@ -290,13 +293,19 @@ button:focus-visible {
 
 .banner-content {
     position: relative;
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
-.banner-content p {
+.banner-text {
     font-weight: var(--font-weight-bold);
     font-size: 1.25rem;
     line-height: 1.6;
-    margin-bottom: var(--spacing-md);
+    margin: var(--spacing-lg) auto;
+    max-width: 800px;
+    color: var(--cu-black);
+    padding: 0 var(--spacing-md);
 }
 
 .banner-title {
@@ -398,11 +407,13 @@ button:focus-visible {
 }
 
 .footer-logo img {
-    width: 300px;
+    width: 500px;
     height: auto;
-    padding: var(--spacing-md);
-    background-color: var(--cu-light-gray);
-    border-radius: 12px;
+    padding: var(--spacing-xs);
+    background-color: #EEEEEE;
+    border-radius: 4px;
+    margin: var(--spacing-sm);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* ============================================
@@ -826,7 +837,7 @@ button:focus-visible {
    ============================================ */
 @media (max-width: 480px) {
     .cu-logo {
-        height: 40px;
+        height: 60px;
     }
     
     .brand-text h1 {
@@ -854,7 +865,7 @@ button:focus-visible {
     }
     
     .footer-logo img {
-        width: 150px;
+        width: 300px;
     }
 }
 
