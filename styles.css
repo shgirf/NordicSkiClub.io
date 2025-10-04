@@ -130,7 +130,7 @@ button:focus-visible {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-md);
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -250,7 +250,7 @@ button:focus-visible {
 
 .hero-content {
     display: grid;
-    grid-template-columns: 45% 55%;
+    grid-template-columns: 35% 65%;
     gap: var(--spacing-lg);
     align-items: center;
 }
@@ -330,7 +330,9 @@ button:focus-visible {
 
 .banner-img-2 {
     position: relative;
-    top: var(--spacing-md);
+    top: 33%;
+    width: 150%;
+    transform: translateX(-17%);
 }
 
 /* Video Section */
@@ -367,7 +369,7 @@ button:focus-visible {
     grid-template-columns: auto 1fr;
     gap: var(--spacing-lg);
     align-items: start;
-    text-align: center;
+    text-align: left;
 }
 
 .footer-info h3 {
@@ -375,6 +377,7 @@ button:focus-visible {
     font-weight: var(--font-weight-bold);
     margin-bottom: var(--spacing-sm);
     color: var(--cu-black);
+    text-align: left;
 }
 
 .contact-list {
@@ -409,10 +412,10 @@ button:focus-visible {
 .footer-logo img {
     width: 500px;
     height: auto;
-    padding: var(--spacing-xs);
+    padding: var(--spacing-sm);
     background-color: #EEEEEE;
-    border-radius: 4px;
-    margin: var(--spacing-sm);
+    border-radius: 16px;
+    margin: 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -469,15 +472,15 @@ button:focus-visible {
 
 .content-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--spacing-lg);
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
     margin-top: var(--spacing-md);
 }
 
 .content-card {
     background-color: var(--cu-white);
     border-radius: 8px;
-    padding: var(--spacing-md);
+    padding: var(--spacing-sm);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: transform var(--transition-medium), box-shadow var(--transition-medium);
 }
@@ -735,7 +738,13 @@ button:focus-visible {
     }
     
     .footer-content {
-        flex-direction: column;
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: var(--spacing-md);
+    }
+    
+    .footer-info h3,
+    .footer-info ul {
         text-align: center;
     }
 }
