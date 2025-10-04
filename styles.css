@@ -105,7 +105,7 @@ button:focus-visible {
    Navigation Header
    ============================================ */
 .site-header {
-    background-color: var(--cu-white);
+    background-color: #f1ebd9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
@@ -124,7 +124,7 @@ button:focus-visible {
 .nav-brand {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
+    gap: calc(var(--spacing-sm) + 8px);
 }
 
 .cu-logo {
@@ -287,6 +287,7 @@ button:focus-visible {
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-md);
     margin-top: var(--spacing-md);
+    position: relative;
 }
 
 .banner-images img {
@@ -297,7 +298,9 @@ button:focus-visible {
 
 .banner-img-2 {
     position: relative;
-    top: var(--spacing-md);
+    margin-top: -15%;
+    width: 140%;
+    transform: translateX(-20%);
 }
 
 /* Video Section */
@@ -330,8 +333,8 @@ button:focus-visible {
 .footer-content {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     gap: var(--spacing-lg);
+    align-items: start;
 }
 
 .footer-info h3 {
@@ -373,6 +376,11 @@ button:focus-visible {
 .footer-logo img {
     width: 200px;
     height: auto;
+    padding: var(--spacing-sm);
+    background-color: #f1ebd9;
+    border-radius: 16px;
+    margin: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* ============================================
