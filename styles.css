@@ -147,14 +147,14 @@ button:focus-visible {
 }
 
 .brand-text h1 {
-    font-size: 1.5rem;
+    font-size: 2.25rem;
     font-weight: var(--font-weight-bold);
     color: var(--cu-black);
     line-height: 1.2;
 }
 
 .brand-text .subtext {
-    font-size: 0.875rem;
+    font-size: 1.3125rem;
     font-weight: var(--font-weight-regular);
     color: var(--cu-gray);
 }
@@ -242,7 +242,10 @@ button:focus-visible {
 /* Hero Section */
 .hero-section {
     background-color: var(--cu-white);
-    padding: var(--spacing-xl) 0;
+    padding: var(--spacing-sm) 0;
+    min-height: calc(80vh - 80px);
+    display: flex;
+    align-items: center;
 }
 
 .hero-content {
@@ -289,6 +292,13 @@ button:focus-visible {
     position: relative;
 }
 
+.banner-content p {
+    font-weight: var(--font-weight-bold);
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+}
+
 .banner-title {
     font-size: 2.5rem;
     font-weight: var(--font-weight-bold);
@@ -328,8 +338,10 @@ button:focus-visible {
 
 .video-container video {
     width: 100%;
+    max-height: 70vh;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    object-fit: contain;
 }
 
 /* ============================================
@@ -342,10 +354,11 @@ button:focus-visible {
 }
 
 .footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: auto 1fr;
     gap: var(--spacing-lg);
+    align-items: start;
+    text-align: center;
 }
 
 .footer-info h3 {
@@ -385,8 +398,11 @@ button:focus-visible {
 }
 
 .footer-logo img {
-    width: 200px;
+    width: 300px;
     height: auto;
+    padding: var(--spacing-md);
+    background-color: var(--cu-light-gray);
+    border-radius: 12px;
 }
 
 /* ============================================
