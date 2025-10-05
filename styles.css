@@ -239,7 +239,52 @@ button:focus-visible {
    Home Page Sections
    ============================================ */
 
-/* Hero Section */
+/* Hero Section with Background Image */
+.hero-section.hero-with-bg {
+    position: relative;
+    padding: var(--spacing-xl) 0;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-image-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.hero-image-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    transform: scale(1.2);
+}
+
+.hero-section.hero-with-bg .container {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-section.hero-with-bg .hero-content {
+    display: block;
+}
+
+.hero-section.hero-with-bg .hero-text {
+    max-width: 50%;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: var(--spacing-lg);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Standard Hero Section */
 .hero-section {
     background-color: var(--cu-white);
     padding: var(--spacing-xl) 0;
@@ -283,6 +328,7 @@ button:focus-visible {
 .community-banner {
     background-color: var(--cu-gold);
     padding: var(--spacing-xl) 0;
+    position: relative;
 }
 
 .banner-content {
@@ -301,6 +347,7 @@ button:focus-visible {
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-md);
     margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
 }
 
 .banner-images img {
@@ -312,6 +359,21 @@ button:focus-visible {
 .banner-img-2 {
     position: relative;
     top: var(--spacing-md);
+}
+
+.banner-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 50%;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--cu-black);
+    font-weight: var(--font-weight-bold);
+    padding: var(--spacing-md);
+    padding-left: 0;
+    margin-top: var(--spacing-md);
+    max-width: 55%;
 }
 
 /* Video Section */
@@ -486,6 +548,15 @@ button:focus-visible {
     margin-top: var(--spacing-md);
 }
 
+/* Skiing Programs Grid - 3 Columns */
+.skiing-programs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+    margin: 0 auto;
+    max-width: 1100px;
+}
+
 .content-card {
     background-color: var(--cu-white);
     border-radius: 8px;
@@ -524,6 +595,36 @@ button:focus-visible {
 
 .column-image img {
     width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Full Width Image Sections */
+.full-width-image-section {
+    padding: var(--spacing-lg) 0;
+    background-color: var(--cu-white);
+}
+
+.about-secondary-image {
+    width: 85%;
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.skiing-page-image {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.join-page-image {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -729,6 +830,10 @@ button:focus-visible {
    Responsive Design - Tablet (768px - 1024px)
    ============================================ */
 @media (max-width: 1024px) {
+    .hero-section.hero-with-bg .hero-text {
+        max-width: 60%;
+    }
+    
     .hero-content {
         flex-direction: column;
     }
@@ -749,6 +854,10 @@ button:focus-visible {
         grid-template-columns: 1fr;
     }
     
+    .skiing-programs-grid {
+        grid-template-columns: 1fr;
+    }
+    
     .footer-content {
         flex-direction: column;
         align-items: center;
@@ -764,6 +873,37 @@ button:focus-visible {
    Responsive Design - Mobile (max-width: 768px)
    ============================================ */
 @media (max-width: 768px) {
+    /* Hero Section Mobile */
+    .hero-section.hero-with-bg {
+        min-height: auto;
+        padding: var(--spacing-md) 0;
+    }
+    
+    .hero-image-bg {
+        width: 100%;
+        height: 400px;
+        position: relative;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .hero-image-bg img {
+        transform: scale(1.5);
+        object-position: center 30%;
+    }
+    
+    .hero-section.hero-with-bg .hero-text {
+        max-width: 100%;
+        padding: var(--spacing-md);
+    }
+    
+    /* Banner text mobile */
+    .banner-text {
+        position: static;
+        max-width: 100%;
+        right: auto;
+        padding: var(--spacing-md) 0;
+    }
+    
     /* Navigation */
     .nav-toggle {
         display: flex;
@@ -843,6 +983,10 @@ button:focus-visible {
         grid-template-columns: 1fr;
     }
     
+    .skiing-programs-grid {
+        grid-template-columns: 1fr;
+    }
+    
     .team-grid {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
@@ -853,6 +997,10 @@ button:focus-visible {
     
     .data-actions {
         flex-direction: column;
+    }
+    
+    .about-secondary-image {
+        width: 100%;
     }
 }
 
@@ -891,6 +1039,14 @@ button:focus-visible {
     .footer-logo-box img {
         width: 150px;
     }
+    
+    .hero-image-bg {
+        height: 300px;
+    }
+    
+    .hero-image-bg img {
+        transform: scale(1.8);
+    }
 }
 
 /* ============================================
@@ -926,7 +1082,8 @@ button:focus-visible {
 @media print {
     .nav-toggle,
     .privacy-notice,
-    .video-section {
+    .video-section,
+    .hero-image-bg {
         display: none;
     }
     
@@ -942,5 +1099,11 @@ button:focus-visible {
     .site-footer {
         background: white;
         border-top: 2px solid black;
+    }
+    
+    .hero-section.hero-with-bg .hero-text {
+        max-width: 100%;
+        background-color: white;
+        box-shadow: none;
     }
 }

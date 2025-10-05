@@ -1,6 +1,6 @@
 // ============================================
 // CU Nordic Ski Club - Main JavaScript
-// Handles navigation, forms, accessibility, and data persistence
+// Handles navigation, accessibility, and data persistence
 // ============================================
 
 // ============================================
@@ -49,9 +49,6 @@ class NavigationController {
                 this.closeMenu();
             }
         });
-        
-        // Load saved menu state
-        this.loadMenuState();
     }
     
     toggleMenu() {
@@ -68,455 +65,14 @@ class NavigationController {
         this.navMenu.classList.add('show');
         this.navToggle.classList.add('active');
         this.navToggle.setAttribute('aria-expanded', 'true');
-        this.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
-        this.saveMenuState(true);
+        this.body.style.overflow = 'hidden';
     }
     
     closeMenu() {
         this.navMenu.classList.remove('show');
         this.navToggle.classList.remove('active');
         this.navToggle.setAttribute('aria-expanded', 'false');
-        this.body.style.overflow = ''; // Restore scrolling
-        this.saveMenuState(false);
-    }
-    
-    saveMenuState(isOpen) {
-        try {
-            localStorage.setItem('menuState', JSON.stringify({ isOpen, timestamp: Date.now() }));
-        } catch (e) {
-            console.warn('Could not save menu state:', e);
-        }
-    }
-    
-    loadMenuState() {
-        try {
-            const saved = localStorage.getItem('menuState');
-            if (saved) {
-                const { isOpen, timestamp } = JSON.parse(saved);
-                // Only restore state if it's less than 1 hour old and on mobile
-                if (Date.now() - timestamp < 3600000 && window.innerWidth <= 768 && isOpen) {
-                    this.openMenu();
-                }
-            }
-        } catch (e) {
-            console.warn('Could not load menu state:', e);
-        }
-    }
-}
-
-// ============================================
-// Form Validation and Handling
-// ============================================
-class FormController {
-    constructor(formSelector) {
-        this.form = document.querySelector(formSelector);
-        
-        if (this.form) {
-            this.init();
-        }
-    }
-    
-    init() {
-        // Form submission
-        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
-        
-        // Real-time validation
-        const inputs = this.form.querySelectorAll('input, textarea, select');
-        inputs.forEach(input => {
-            input.addEventListener('blur', () => this.validateField(input));
-            input.addEventListener('input', () => this.clearError(input));
-        });
-        
-        // Load saved form data
-        this.loadFormData();
-        
-        // Auto-save form data
-        this.form.addEventListener('input', () => this.saveFormData());
-    }
-    
-    handleSubmit(e) {
-        e.preventDefault();
-        
-        // Validate all fields
-        let isValid = true;
-        const inputs = this.form.querySelectorAll('input, textarea, select');
-        
-        inputs.forEach(input => {
-            if (!this.validateField(input)) {
-                isValid = false;
-            }
-        });
-        
-        if (isValid) {
-            // Show success message
-            this.showSuccessMessage();
-            
-            // Clear saved form data
-            this.clearSavedFormData();
-            
-            // Reset form after short delay
-            setTimeout(() => {
-                this.form.reset();
-            }, 2000);
-        } else {
-            // Focus on first error
-            const firstError = this.form.querySelector('.error');
-            if (firstError) {
-                firstError.focus();
-            }
-        }
-    }
-    
-    validateField(input) {
-        const value = input.value.trim();
-        const type = input.type;
-        const required = input.hasAttribute('required');
-        
-        // Clear previous error
-        this.clearError(input);
-        
-        // Check if required field is empty
-        if (required && !value) {
-            this.showError(input, 'This field is required');
-            return false;
-        }
-        
-        // Email validation
-        if (type === 'email' && value) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(value)) {
-                this.showError(input, 'Please enter a valid email address');
-                return false;
-            }
-        }
-        
-        // Phone validation (if applicable)
-        if (input.name === 'phone' && value) {
-            const phoneRegex = /^[\d\s\-\(\)]+$/;
-            if (!phoneRegex.test(value)) {
-                this.showError(input, 'Please enter a valid phone number');
-                return false;
-            }
-        }
-        
-        // Minimum length validation
-        const minLength = input.getAttribute('minlength');
-        if (minLength && value.length < parseInt(minLength)) {
-            this.showError(input, `Please enter at least ${minLength} characters`);
-            return false;
-        }
-        
-        return true;
-    }
-    
-    showError(input, message) {
-        input.classList.add('error');
-        input.setAttribute('aria-invalid', 'true');
-        
-        // Create or update error message
-        let errorMsg = input.parentElement.querySelector('.error-message');
-        if (!errorMsg) {
-            errorMsg = document.createElement('div');
-            errorMsg.className = 'error-message';
-            errorMsg.setAttribute('role', 'alert');
-            input.parentElement.appendChild(errorMsg);
-        }
-        
-        errorMsg.textContent = message;
-        errorMsg.classList.add('visible');
-        errorMsg.id = `${input.id}-error`;
-        input.setAttribute('aria-describedby', errorMsg.id);
-    }
-    
-    clearError(input) {
-        input.classList.remove('error');
-        input.removeAttribute('aria-invalid');
-        input.removeAttribute('aria-describedby');
-        
-        const errorMsg = input.parentElement.querySelector('.error-message');
-        if (errorMsg) {
-            errorMsg.classList.remove('visible');
-        }
-    }
-    
-    showSuccessMessage() {
-        // Create success message
-        const successDiv = document.createElement('div');
-        successDiv.className = 'success-message';
-        successDiv.setAttribute('role', 'status');
-        successDiv.setAttribute('aria-live', 'polite');
-        successDiv.style.cssText = `
-            background-color: #4caf50;
-            color: white;
-            padding: 1rem;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-            text-align: center;
-            font-weight: 500;
-        `;
-        successDiv.textContent = 'Thank you! Your form has been submitted successfully.';
-        
-        this.form.insertBefore(successDiv, this.form.firstChild);
-        
-        // Remove after 5 seconds
-        setTimeout(() => {
-            successDiv.remove();
-        }, 5000);
-    }
-    
-    saveFormData() {
-        try {
-            const formData = {};
-            const inputs = this.form.querySelectorAll('input, textarea, select');
-            
-            inputs.forEach(input => {
-                if (input.type !== 'submit' && input.name) {
-                    formData[input.name] = input.value;
-                }
-            });
-            
-            localStorage.setItem(`formData_${this.form.id}`, JSON.stringify({
-                data: formData,
-                timestamp: Date.now()
-            }));
-        } catch (e) {
-            console.warn('Could not save form data:', e);
-        }
-    }
-    
-    loadFormData() {
-        try {
-            const saved = localStorage.getItem(`formData_${this.form.id}`);
-            if (saved) {
-                const { data, timestamp } = JSON.parse(saved);
-                
-                // Only restore if less than 24 hours old
-                if (Date.now() - timestamp < 86400000) {
-                    Object.keys(data).forEach(name => {
-                        const input = this.form.querySelector(`[name="${name}"]`);
-                        if (input) {
-                            input.value = data[name];
-                        }
-                    });
-                    
-                    // Notify user that data was restored
-                    this.showRestoredDataNotice();
-                }
-            }
-        } catch (e) {
-            console.warn('Could not load form data:', e);
-        }
-    }
-    
-    showRestoredDataNotice() {
-        const notice = document.createElement('div');
-        notice.className = 'restored-data-notice';
-        notice.setAttribute('role', 'status');
-        notice.style.cssText = `
-            background-color: #fff3cd;
-            border: 1px solid #ffc107;
-            color: #856404;
-            padding: 0.75rem;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-            font-size: 0.875rem;
-        `;
-        notice.textContent = 'We restored your previously entered information.';
-        
-        this.form.insertBefore(notice, this.form.firstChild);
-        
-        setTimeout(() => {
-            notice.remove();
-        }, 5000);
-    }
-    
-    clearSavedFormData() {
-        try {
-            localStorage.removeItem(`formData_${this.form.id}`);
-        } catch (e) {
-            console.warn('Could not clear saved form data:', e);
-        }
-    }
-}
-
-// ============================================
-// Content Filtering/Search (for resources or events)
-// ============================================
-class ContentFilter {
-    constructor(filterSelector, contentSelector) {
-        this.filterInput = document.querySelector(filterSelector);
-        this.contentItems = document.querySelectorAll(contentSelector);
-        
-        if (this.filterInput && this.contentItems.length > 0) {
-            this.init();
-        }
-    }
-    
-    init() {
-        // Filter on input
-        this.filterInput.addEventListener('input', (e) => this.filterContent(e.target.value));
-        
-        // Filter on Enter key
-        this.filterInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                this.filterContent(e.target.value);
-            }
-        });
-        
-        // Add live region for screen readers
-        this.createLiveRegion();
-    }
-    
-    filterContent(searchTerm) {
-        const term = searchTerm.toLowerCase().trim();
-        let visibleCount = 0;
-        
-        this.contentItems.forEach(item => {
-            const text = item.textContent.toLowerCase();
-            const matches = text.includes(term);
-            
-            if (matches || term === '') {
-                item.style.display = '';
-                visibleCount++;
-            } else {
-                item.style.display = 'none';
-            }
-        });
-        
-        // Update live region for accessibility
-        this.updateLiveRegion(visibleCount, this.contentItems.length);
-    }
-    
-    createLiveRegion() {
-        this.liveRegion = document.createElement('div');
-        this.liveRegion.setAttribute('role', 'status');
-        this.liveRegion.setAttribute('aria-live', 'polite');
-        this.liveRegion.className = 'sr-only';
-        this.liveRegion.style.cssText = `
-            position: absolute;
-            left: -10000px;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-        `;
-        document.body.appendChild(this.liveRegion);
-    }
-    
-    updateLiveRegion(visible, total) {
-        this.liveRegion.textContent = `Showing ${visible} of ${total} items`;
-    }
-}
-
-// ============================================
-// Image Gallery with Keyboard Navigation
-// ============================================
-class ImageGallery {
-    constructor(gallerySelector) {
-        this.gallery = document.querySelector(gallerySelector);
-        
-        if (this.gallery) {
-            this.images = this.gallery.querySelectorAll('img');
-            this.currentIndex = 0;
-            this.init();
-        }
-    }
-    
-    init() {
-        // Make images focusable and add keyboard navigation
-        this.images.forEach((img, index) => {
-            img.setAttribute('tabindex', '0');
-            img.setAttribute('role', 'button');
-            
-            // Click to view full size
-            img.addEventListener('click', () => this.showLightbox(index));
-            
-            // Enter/Space to view full size
-            img.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    this.showLightbox(index);
-                }
-            });
-        });
-    }
-    
-    showLightbox(index) {
-        this.currentIndex = index;
-        
-        // Create lightbox
-        const lightbox = document.createElement('div');
-        lightbox.className = 'lightbox';
-        lightbox.setAttribute('role', 'dialog');
-        lightbox.setAttribute('aria-modal', 'true');
-        lightbox.setAttribute('aria-label', 'Image viewer');
-        lightbox.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 3000;
-            padding: 2rem;
-        `;
-        
-        const img = document.createElement('img');
-        img.src = this.images[index].src;
-        img.alt = this.images[index].alt;
-        img.style.cssText = `
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        `;
-        
-        const closeBtn = document.createElement('button');
-        closeBtn.textContent = '×';
-        closeBtn.setAttribute('aria-label', 'Close image viewer');
-        closeBtn.style.cssText = `
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: white;
-            border: none;
-            font-size: 2rem;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        `;
-        
-        lightbox.appendChild(img);
-        lightbox.appendChild(closeBtn);
-        document.body.appendChild(lightbox);
-        
-        // Close handlers
-        const closeLightbox = () => {
-            lightbox.remove();
-            this.images[index].focus(); // Return focus
-        };
-        
-        closeBtn.addEventListener('click', closeLightbox);
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) {
-                closeLightbox();
-            }
-        });
-        
-        document.addEventListener('keydown', function escapeHandler(e) {
-            if (e.key === 'Escape') {
-                closeLightbox();
-                document.removeEventListener('keydown', escapeHandler);
-            }
-        });
-        
-        closeBtn.focus();
+        this.body.style.overflow = '';
     }
 }
 
@@ -554,6 +110,7 @@ class PrivacyController {
     
     showNotice() {
         setTimeout(() => {
+            this.notice.removeAttribute('hidden');
             this.notice.classList.add('visible');
             this.notice.setAttribute('aria-hidden', 'false');
         }, 1000);
@@ -563,6 +120,9 @@ class PrivacyController {
         this.setPrivacyConsent(true);
         this.notice.classList.remove('visible');
         this.notice.setAttribute('aria-hidden', 'true');
+        setTimeout(() => {
+            this.notice.setAttribute('hidden', '');
+        }, 300);
     }
     
     getPrivacyConsent() {
@@ -593,7 +153,6 @@ class PrivacyController {
     }
     
     showFullPrivacyStatement() {
-        // Create modal with full privacy statement
         const modal = document.createElement('div');
         modal.className = 'privacy-modal';
         modal.setAttribute('role', 'dialog');
@@ -640,14 +199,11 @@ class PrivacyController {
             <ul style="margin-bottom: 1rem; margin-left: 1.5rem;">
                 <li>Respond to your inquiries and membership requests</li>
                 <li>Improve your browsing experience by remembering your preferences</li>
-                <li>Restore your progress if you accidentally close the page while filling out a form</li>
             </ul>
             
             <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">How Long We Store It</h3>
             <p style="margin-bottom: 1rem;">Your data is stored locally in your browser:</p>
             <ul style="margin-bottom: 1rem; margin-left: 1.5rem;">
-                <li>Form data: Up to 24 hours</li>
-                <li>Navigation preferences: Up to 1 hour</li>
                 <li>Privacy consent: Up to 1 year</li>
             </ul>
             <p style="margin-bottom: 1rem;"><strong>Important:</strong> No data is ever sent to external servers. Everything stays on your device.</p>
@@ -669,7 +225,6 @@ class PrivacyController {
         modal.appendChild(content);
         document.body.appendChild(modal);
         
-        // Close handlers
         const closeModal = () => modal.remove();
         
         document.getElementById('close-privacy-modal').addEventListener('click', closeModal);
@@ -697,7 +252,6 @@ class DataManagement {
     }
     
     init() {
-        // Create data management section in footer if it doesn't exist
         this.createDataControls();
     }
     
@@ -725,7 +279,6 @@ class DataManagement {
         
         footer.appendChild(dataSection);
         
-        // Event listeners
         document.getElementById('clear-all-data').addEventListener('click', () => this.clearAllData());
         document.getElementById('view-stored-data').addEventListener('click', () => this.viewStoredData());
     }
@@ -737,8 +290,6 @@ class DataManagement {
             try {
                 localStorage.clear();
                 alert('All stored data has been cleared successfully.');
-                
-                // Reload page to reflect changes
                 window.location.reload();
             } catch (e) {
                 alert('Error clearing data: ' + e.message);
@@ -827,7 +378,6 @@ function initSmoothScroll() {
                     block: 'start'
                 });
                 
-                // Update focus for accessibility
                 target.setAttribute('tabindex', '-1');
                 target.focus();
             }
@@ -841,24 +391,6 @@ function initSmoothScroll() {
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize navigation
     new NavigationController();
-    
-    // Initialize forms (only if they exist on the page)
-    if (document.querySelector('#join-form')) {
-        new FormController('#join-form');
-    }
-    if (document.querySelector('#support-form')) {
-        new FormController('#support-form');
-    }
-    
-    // Initialize content filtering (if filter exists)
-    if (document.querySelector('#content-filter')) {
-        new ContentFilter('#content-filter', '.filterable-item');
-    }
-    
-    // Initialize image gallery (if gallery exists)
-    if (document.querySelector('.image-gallery')) {
-        new ImageGallery('.image-gallery');
-    }
     
     // Initialize privacy controls
     new PrivacyController();
