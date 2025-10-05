@@ -37,6 +37,7 @@
     --cu-gray: #565A5C;
     --cu-light-gray: #F5F5F5;
     --cu-light-blue: #E8F1F8;
+    --cu-light-blue: #E8F1F8;
     
     /* Spacing */
     --spacing-xs: 0.5rem;
@@ -335,11 +336,21 @@ button:focus-visible {
     margin-top: var(--spacing-lg);
 }
 
+.support-section .content-grid {
+    background-color: var(--cu-light-blue);
+}
+
+.support-section .content-card {
+    background-color: var(--cu-white);
+    transition: transform var(--transition-medium);
+}
+
 /* Community Banner */
 .community-banner {
     background-color: var(--cu-gold);
-    padding: var(--spacing-lg) 0;
+    padding: var(--spacing-md) 0;
     position: relative;
+    margin-top: var(--spacing-md);
 }
 
 .banner-content {
@@ -388,9 +399,9 @@ button:focus-visible {
     line-height: 1.6;
     color: var(--cu-black);
     font-weight: var(--font-weight-bold);
-    max-width: 110%;
+    max-width: 90%;
     text-align: center;
-    margin-top: var(--spacing-sm);
+    margin: var(--spacing-sm) auto 0;
 }
 
 .banner-images {
@@ -466,14 +477,18 @@ button:focus-visible {
 .footer-logo-box {
     flex-shrink: 0;
     background-color: #f1ebd9;
-    padding: var(--spacing-md);
-    border-radius: 16px;
+    padding: var(--spacing-sm);
+    border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .footer-logo-box img {
-    width: 200px;
+    width: 300px;
     height: auto;
+    display: block;
 }
 
 /* Footer Right Section */
@@ -936,18 +951,23 @@ button:focus-visible {
     .hero-section.hero-with-bg {
         min-height: auto;
         padding: var(--spacing-md) 0;
+        flex-direction: column;
+    }
+    
+    .hero-section.hero-with-bg .container {
+        order: 1;
+        width: 100%;
+        margin-bottom: var(--spacing-md);
     }
     
     .hero-image-bg {
         width: 100%;
-        height: 400px;
+        height: 300px;
         position: relative;
-        margin-bottom: var(--spacing-md);
-    }
-    
-    .hero-image-bg img {
-        transform: scale(1.5);
-        object-position: center 30%;
+        order: 2;
+        top: 0;
+        right: 0;
+        margin: var(--spacing-md) 0;
     }
     
     .hero-section.hero-with-bg .hero-text {
