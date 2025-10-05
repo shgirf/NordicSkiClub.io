@@ -332,48 +332,51 @@ button:focus-visible {
 }
 
 .banner-content {
-    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+    align-items: start;
 }
 
 .banner-title {
     font-size: 2.5rem;
     font-weight: var(--font-weight-bold);
     color: var(--cu-black);
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    grid-column: 1 / -1;
+    text-align: center;
 }
 
-.banner-images {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.banner-left {
+    display: flex;
+    flex-direction: column;
     gap: var(--spacing-md);
-    margin-top: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
 }
 
-.banner-images img {
+.banner-left img {
     width: 100%;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.banner-img-2 {
-    position: relative;
-    top: var(--spacing-md);
+.banner-right {
+    padding-top: 0;
+}
+
+.banner-right img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    margin-top: var(--spacing-md);
 }
 
 .banner-text {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 50%;
     font-size: 1.125rem;
     line-height: 1.6;
     color: var(--cu-black);
     font-weight: var(--font-weight-bold);
-    padding: var(--spacing-md);
-    padding-left: 0;
-    margin-top: var(--spacing-md);
-    max-width: 55%;
+    padding: 0;
+    margin: 0;
 }
 
 /* Video Section */
@@ -896,12 +899,18 @@ button:focus-visible {
         padding: var(--spacing-md);
     }
     
-    /* Banner text mobile */
-    .banner-text {
-        position: static;
-        max-width: 100%;
-        right: auto;
-        padding: var(--spacing-md) 0;
+    /* Banner mobile layout */
+    .banner-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .banner-left,
+    .banner-right {
+        width: 100%;
+    }
+    
+    .banner-right img {
+        margin-top: 0;
     }
     
     /* Navigation */
@@ -969,14 +978,6 @@ button:focus-visible {
     /* Layout adjustments */
     .container {
         padding: 0 var(--spacing-sm);
-    }
-    
-    .banner-images {
-        grid-template-columns: 1fr;
-    }
-    
-    .banner-img-2 {
-        top: 0;
     }
     
     .content-grid {
