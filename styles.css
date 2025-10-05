@@ -332,19 +332,14 @@ button:focus-visible {
 }
 
 .banner-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-lg);
-    align-items: start;
+    position: relative;
 }
 
 .banner-title {
-    font-size: 2.25rem;
+    font-size: 2.5rem;
     font-weight: var(--font-weight-bold);
     color: var(--cu-black);
-    margin-bottom: var(--spacing-lg);
-    text-align: center;
-    grid-column: 1 / -1;
+    margin-bottom: var(--spacing-md);
 }
 
 .banner-images {
@@ -367,12 +362,18 @@ button:focus-visible {
 }
 
 .banner-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 50%;
     font-size: 1.125rem;
     line-height: 1.6;
     color: var(--cu-black);
     font-weight: var(--font-weight-bold);
+    padding: var(--spacing-md);
+    padding-left: 0;
     margin-top: var(--spacing-md);
-    text-align: center;
+    max-width: 55%;
 }
 
 /* Video Section */
@@ -751,17 +752,16 @@ button:focus-visible {
     color: var(--cu-white);
     padding: var(--spacing-md);
     transform: translateY(100%);
-    transition: transform var(--transition-medium);
+    transition: transform var(--transition-medium), visibility 0s linear var(--transition-medium);
     z-index: 2000;
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.privacy-notice[hidden] {
-    display: none;
+    visibility: hidden;
 }
 
 .privacy-notice.visible {
     transform: translateY(0);
+    visibility: visible;
+    transition-delay: 0s;
 }
 
 .privacy-content {
@@ -896,20 +896,12 @@ button:focus-visible {
         padding: var(--spacing-md);
     }
     
-    /* Banner mobile layout */
-    .banner-content {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-md);
-    }
-    
-    .banner-left, .banner-right {
-        width: 100%;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-    
+    /* Banner text mobile */
     .banner-text {
-        padding: 0 var(--spacing-sm);
+        position: static;
+        max-width: 100%;
+        right: auto;
+        padding: var(--spacing-md) 0;
     }
     
     /* Navigation */
