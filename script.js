@@ -94,8 +94,15 @@ class PrivacyController {
         // Check if user has already accepted
         const hasAccepted = this.getPrivacyConsent();
         
+        console.log('Privacy consent status:', hasAccepted);
+        
         if (!hasAccepted) {
+            console.log('Showing privacy notice...');
             this.showNotice();
+        } else {
+            console.log('Privacy already accepted, hiding notice');
+            // Ensure notice stays hidden if already accepted
+            this.notice.setAttribute('hidden', '');
         }
         
         // Event listeners
@@ -109,11 +116,17 @@ class PrivacyController {
     }
     
     showNotice() {
+        // Remove hidden attribute first
+        this.notice.removeAttribute('hidden');
+        
+        // Force a reflow to ensure the element is rendered
+        this.notice.offsetHeight;
+        
+        // Then add visible class with a slight delay
         setTimeout(() => {
-            this.notice.removeAttribute('hidden');
             this.notice.classList.add('visible');
             this.notice.setAttribute('aria-hidden', 'false');
-        }, 1000);
+        }, 100);
     }
     
     acceptPrivacy() {
