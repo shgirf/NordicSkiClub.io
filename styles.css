@@ -8,6 +8,20 @@
 /* ============================================
    CSS Reset & Base Styles
    ============================================ */
+
+/* Utility Classes */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -124,7 +138,7 @@ button:focus-visible {
 .nav-brand {
     display: flex;
     align-items: center;
-    gap: calc(var(--spacing-sm) + 8px);
+    gap: var(--spacing-sm);
 }
 
 .cu-logo {
@@ -287,7 +301,6 @@ button:focus-visible {
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-md);
     margin-top: var(--spacing-md);
-    position: relative;
 }
 
 .banner-images img {
@@ -298,9 +311,7 @@ button:focus-visible {
 
 .banner-img-2 {
     position: relative;
-    margin-top: -15%;
-    width: 140%;
-    transform: translateX(-20%);
+    top: var(--spacing-md);
 }
 
 /* Video Section */
@@ -322,7 +333,7 @@ button:focus-visible {
 }
 
 /* ============================================
-   Footer
+   Footer - CONSISTENT LAYOUT
    ============================================ */
 .site-footer {
     background-color: var(--cu-gold);
@@ -333,8 +344,30 @@ button:focus-visible {
 .footer-content {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     gap: var(--spacing-lg);
-    align-items: start;
+}
+
+/* Logo Box - Always on LEFT */
+.footer-logo-box {
+    flex-shrink: 0;
+    background-color: #f1ebd9;
+    padding: var(--spacing-md);
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.footer-logo-box img {
+    width: 200px;
+    height: auto;
+}
+
+/* Footer Right Section */
+.footer-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
 }
 
 .footer-info h3 {
@@ -346,6 +379,7 @@ button:focus-visible {
 
 .contact-list {
     list-style: none;
+    margin-bottom: var(--spacing-md);
 }
 
 .contact-list li {
@@ -369,18 +403,29 @@ button:focus-visible {
     color: var(--cu-white);
 }
 
-.footer-logo {
-    flex-shrink: 0;
+/* Data Controls in Footer */
+.data-controls {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: var(--spacing-sm);
+    border-radius: 8px;
 }
 
-.footer-logo img {
-    width: 200px;
-    height: auto;
-    padding: var(--spacing-sm);
-    background-color: #f1ebd9;
-    border-radius: 16px;
-    margin: 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.data-controls h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--cu-black);
+}
+
+.data-controls p {
+    font-size: 0.875rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--cu-black);
+}
+
+.data-actions {
+    display: flex;
+    gap: var(--spacing-xs);
+    flex-wrap: wrap;
 }
 
 /* ============================================
@@ -484,7 +529,7 @@ button:focus-visible {
 }
 
 /* ============================================
-   Forms (Join the Club, Support)
+   Form Container (for Google Form iframe)
    ============================================ */
 .form-section {
     background-color: var(--cu-light-gray);
@@ -500,65 +545,13 @@ button:focus-visible {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.form-group {
-    margin-bottom: var(--spacing-md);
-}
-
-.form-group label {
-    display: block;
-    font-weight: var(--font-weight-medium);
-    margin-bottom: var(--spacing-xs);
-    color: var(--cu-black);
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-    width: 100%;
-    padding: var(--spacing-sm);
-    border: 2px solid var(--cu-light-gray);
+.form-container iframe {
     border-radius: 4px;
-    font-family: var(--font-main);
-    font-size: 1rem;
-    transition: border-color var(--transition-fast);
 }
 
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-    border-color: var(--cu-gold);
-    outline: none;
-}
-
-.form-group input.error,
-.form-group textarea.error,
-.form-group select.error {
-    border-color: #d32f2f;
-}
-
-.error-message {
-    color: #d32f2f;
-    font-size: 0.875rem;
-    margin-top: var(--spacing-xs);
-    display: none;
-}
-
-.error-message.visible {
-    display: block;
-}
-
-.form-group textarea {
-    min-height: 150px;
-    resize: vertical;
-}
-
-.form-actions {
-    display: flex;
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-md);
-}
-
-/* Buttons */
+/* ============================================
+   Buttons
+   ============================================ */
 .btn {
     padding: var(--spacing-sm) var(--spacing-md);
     font-size: 1rem;
@@ -635,16 +628,19 @@ button:focus-visible {
 .team-member .role {
     color: var(--cu-gray);
     font-size: 0.875rem;
-    margin-bottom: var(--spacing-xs);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-sm);
 }
 
 .team-member p {
     font-size: 0.875rem;
     color: var(--cu-gray);
+    text-align: left;
+    margin-bottom: 0.5rem;
 }
 
 /* ============================================
-   Privacy Notice
+   Privacy Notice (Homepage only)
    ============================================ */
 .privacy-notice {
     position: fixed;
@@ -655,13 +651,16 @@ button:focus-visible {
     color: var(--cu-white);
     padding: var(--spacing-md);
     transform: translateY(100%);
-    transition: transform var(--transition-medium);
+    transition: transform var(--transition-medium), visibility 0s linear var(--transition-medium);
     z-index: 2000;
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+    visibility: hidden;
 }
 
 .privacy-notice.visible {
     transform: translateY(0);
+    visibility: visible;
+    transition-delay: 0s;
 }
 
 .privacy-content {
@@ -694,28 +693,36 @@ button:focus-visible {
 }
 
 /* ============================================
-   Data Management Section
+   Accessibility Enhancements
    ============================================ */
-.data-controls {
-    background-color: var(--cu-light-gray);
-    padding: var(--spacing-md);
-    border-radius: 8px;
-    margin-top: var(--spacing-md);
+
+/* Skip to main content link */
+.skip-to-main {
+    position: absolute;
+    left: -9999px;
+    z-index: 999;
+    padding: var(--spacing-sm);
+    background-color: var(--cu-gold);
+    color: var(--cu-black);
+    text-decoration: none;
 }
 
-.data-controls h3 {
-    font-size: 1.25rem;
-    margin-bottom: var(--spacing-sm);
+.skip-to-main:focus {
+    left: 50%;
+    transform: translateX(-50%);
+    top: var(--spacing-sm);
 }
 
-.data-controls p {
-    margin-bottom: var(--spacing-sm);
+/* Focus visible for all interactive elements */
+*:focus-visible {
+    outline: 2px solid var(--cu-gold);
+    outline-offset: 2px;
 }
 
-.data-actions {
-    display: flex;
-    gap: var(--spacing-sm);
-    flex-wrap: wrap;
+/* Ensure sufficient color contrast */
+::selection {
+    background-color: var(--cu-gold);
+    color: var(--cu-black);
 }
 
 /* ============================================
@@ -744,7 +751,12 @@ button:focus-visible {
     
     .footer-content {
         flex-direction: column;
+        align-items: center;
         text-align: center;
+    }
+    
+    .footer-logo-box {
+        order: -1;
     }
 }
 
@@ -823,13 +835,8 @@ button:focus-visible {
         grid-template-columns: 1fr;
     }
     
-    .banner-img-1 {
-        grid-column: 1;
-    }
-    
     .banner-img-2 {
-        grid-column: 1;
-        transform: translateY(0);
+        top: 0;
     }
     
     .content-grid {
@@ -840,11 +847,11 @@ button:focus-visible {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
     
-    .form-actions {
+    .privacy-actions {
         flex-direction: column;
     }
     
-    .privacy-actions {
+    .data-actions {
         flex-direction: column;
     }
 }
@@ -881,43 +888,14 @@ button:focus-visible {
         grid-template-columns: 1fr;
     }
     
-    .footer-logo img {
+    .footer-logo-box img {
         width: 150px;
     }
 }
 
 /* ============================================
-   Accessibility Enhancements
+   Reduced Motion & Accessibility
    ============================================ */
-
-/* Skip to main content link */
-.skip-to-main {
-    position: absolute;
-    left: -9999px;
-    z-index: 999;
-    padding: var(--spacing-sm);
-    background-color: var(--cu-gold);
-    color: var(--cu-black);
-    text-decoration: none;
-}
-
-.skip-to-main:focus {
-    left: 50%;
-    transform: translateX(-50%);
-    top: var(--spacing-sm);
-}
-
-/* Focus visible for all interactive elements */
-*:focus-visible {
-    outline: 2px solid var(--cu-gold);
-    outline-offset: 2px;
-}
-
-/* Ensure sufficient color contrast */
-::selection {
-    background-color: var(--cu-gold);
-    color: var(--cu-black);
-}
 
 /* Reduced motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
