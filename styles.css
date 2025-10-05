@@ -36,6 +36,7 @@
     --cu-white: #FFFFFF;
     --cu-gray: #565A5C;
     --cu-light-gray: #F5F5F5;
+    --cu-light-blue: #E8F1F8;
     
     /* Spacing */
     --spacing-xs: 0.5rem;
@@ -253,12 +254,13 @@ button:focus-visible {
 .hero-image-bg {
     position: absolute;
     top: var(--spacing-sm);
-    right: var(--spacing-sm);
-    width: 48%;
+    right: var(--spacing-md);
+    width: 45%;
     height: calc(100% - var(--spacing-md));
     overflow: hidden;
     z-index: 0;
     border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .hero-image-bg img {
@@ -326,10 +328,17 @@ button:focus-visible {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Support Section */
+.support-section {
+    background-color: var(--cu-light-blue);
+    padding: var(--spacing-lg) 0;
+    margin-top: var(--spacing-lg);
+}
+
 /* Community Banner */
 .community-banner {
     background-color: var(--cu-gold);
-    padding: var(--spacing-xl) 0;
+    padding: var(--spacing-lg) 0;
     position: relative;
 }
 
@@ -342,10 +351,10 @@ button:focus-visible {
 }
 
 .banner-title {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     font-weight: var(--font-weight-bold);
     color: var(--cu-black);
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
     grid-column: 1 / -1;
     text-align: center;
 }
@@ -379,8 +388,9 @@ button:focus-visible {
     line-height: 1.6;
     color: var(--cu-black);
     font-weight: var(--font-weight-bold);
-    max-width: 90%;
+    max-width: 110%;
     text-align: center;
+    margin-top: var(--spacing-sm);
 }
 
 .banner-images {
