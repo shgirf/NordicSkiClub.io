@@ -249,13 +249,14 @@ button:focus-visible {
     overflow: hidden;
 }
 
+/* ⭐ UPDATED: Hero Image with spacing and matching width */
 .hero-image-bg {
     position: absolute;
     top: 0;
     right: 0;
     width: 50%;
     height: 100%;
-    overflow: hidden;
+    padding: var(--spacing-lg); /* Added spacing buffer */
     z-index: 0;
 }
 
@@ -264,7 +265,8 @@ button:focus-visible {
     height: 100%;
     object-fit: cover;
     object-position: center center;
-    transform: scale(1.2);
+    border-radius: 8px; /* Rounded corners to show the spacing */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Subtle shadow to emphasize spacing */
 }
 
 .hero-section.hero-with-bg .container {
@@ -276,8 +278,9 @@ button:focus-visible {
     display: block;
 }
 
+/* ⭐ UPDATED: Text box now matches image width (both 50% minus spacing) */
 .hero-section.hero-with-bg .hero-text {
-    max-width: 50%;
+    max-width: calc(50% - var(--spacing-lg)); /* Matches image width after spacing */
     background-color: rgba(255, 255, 255, 0.95);
     padding: var(--spacing-lg);
     border-radius: 8px;
@@ -882,18 +885,21 @@ button:focus-visible {
         padding: var(--spacing-md) 0;
     }
     
+    /* ⭐ UPDATED: Mobile hero image maintains spacing */
     .hero-image-bg {
         width: 100%;
         height: 400px;
         position: relative;
         margin-bottom: var(--spacing-md);
+        padding: var(--spacing-md); /* Reduced padding for mobile */
     }
     
     .hero-image-bg img {
-        transform: scale(1.5);
         object-position: center 30%;
+        border-radius: 8px;
     }
     
+    /* ⭐ UPDATED: Mobile text box full width */
     .hero-section.hero-with-bg .hero-text {
         max-width: 100%;
         padding: var(--spacing-md);
@@ -1043,10 +1049,6 @@ button:focus-visible {
     
     .hero-image-bg {
         height: 300px;
-    }
-    
-    .hero-image-bg img {
-        transform: scale(1.8);
     }
 }
 
