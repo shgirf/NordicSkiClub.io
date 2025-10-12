@@ -28,7 +28,6 @@
 }
 
 :root {
-    /* CU Boulder Brand Colors */
     --cu-gold: #CFB87C;
     --cu-dark-gold: #B89968;
     --cu-black: #000000;
@@ -36,21 +35,18 @@
     --cu-gray: #565A5C;
     --cu-light-gray: #F5F5F5;
     
-    /* Spacing */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 2rem;
     --spacing-lg: 3rem;
     --spacing-xl: 4rem;
     
-    /* Typography */
     --font-main: 'Roboto', sans-serif;
     --font-weight-light: 300;
     --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-bold: 700;
     
-    /* Transitions */
     --transition-fast: 0.2s ease;
     --transition-medium: 0.3s ease;
 }
@@ -129,7 +125,7 @@ button:focus-visible {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: 1.2rem var(--spacing-md);
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -141,24 +137,23 @@ button:focus-visible {
 }
 
 .cu-logo {
-    height: 60px;
+    height: 72px;
     width: auto;
 }
 
 .brand-text h1 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: var(--font-weight-bold);
     color: var(--cu-black);
     line-height: 1.2;
 }
 
 .brand-text .subtext {
-    font-size: 0.875rem;
+    font-size: 1.05rem;
     font-weight: var(--font-weight-regular);
     color: var(--cu-gray);
 }
 
-/* Navigation Menu */
 .nav-menu {
     display: flex;
     list-style: none;
@@ -169,6 +164,7 @@ button:focus-visible {
 .nav-menu li a {
     padding: var(--spacing-xs) var(--spacing-sm);
     font-weight: var(--font-weight-medium);
+    font-size: 1.05rem;
     position: relative;
     transition: color var(--transition-fast);
 }
@@ -195,7 +191,6 @@ button:focus-visible {
     font-weight: var(--font-weight-bold);
 }
 
-/* Hamburger Button */
 .nav-toggle {
     display: none;
     flex-direction: column;
@@ -283,7 +278,6 @@ button:focus-visible {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Standard Hero Section */
 .hero-section {
     background-color: var(--cu-white);
     padding: var(--spacing-xl) 0;
@@ -323,7 +317,6 @@ button:focus-visible {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Community Banner */
 .community-banner {
     background-color: var(--cu-gold);
     padding: var(--spacing-xl) 0;
@@ -378,7 +371,6 @@ button:focus-visible {
     margin: 0;
 }
 
-/* Video Section */
 .video-section {
     padding: var(--spacing-lg) 0;
     background-color: var(--cu-light-gray);
@@ -418,18 +410,18 @@ button:focus-visible {
     padding: var(--spacing-md);
     border-radius: 16px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    width: 220px; 
-    height: 120px;
+    width: 330px;
+    height: 180px;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden; 
+    overflow: visible;
 }
 
 .footer-logo-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
     display: block;
 }
 
@@ -473,16 +465,17 @@ button:focus-visible {
     color: var(--cu-white);
 }
 
-/* Data Controls in Footer */
 .data-controls {
     background-color: rgba(0, 0, 0, 0.1);
     padding: var(--spacing-sm);
     border-radius: 8px;
+    margin-top: 0;
 }
 
 .data-controls h3 {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-sm);
     color: var(--cu-black);
 }
 
@@ -502,7 +495,6 @@ button:focus-visible {
    Interior Page Styles (About, Skiing, etc.)
    ============================================ */
 
-/* Page Header */
 .page-header {
     background: linear-gradient(135deg, var(--cu-gold) 0%, var(--cu-dark-gold) 100%);
     padding: var(--spacing-xl) 0;
@@ -523,7 +515,6 @@ button:focus-visible {
     margin: 0 auto;
 }
 
-/* Content Section */
 .content-section {
     padding: var(--spacing-xl) 0;
 }
@@ -556,7 +547,6 @@ button:focus-visible {
     margin-top: var(--spacing-md);
 }
 
-/* Skiing Programs Grid - 3 Columns */
 .skiing-programs-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -593,7 +583,6 @@ button:focus-visible {
     font-size: 1rem;
 }
 
-/* Two Column Layout */
 .two-column {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -607,7 +596,6 @@ button:focus-visible {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Full Width Image Sections */
 .full-width-image-section {
     padding: var(--spacing-lg) 0;
     background-color: var(--cu-white);
@@ -805,7 +793,6 @@ button:focus-visible {
    Accessibility Enhancements
    ============================================ */
 
-/* Skip to main content link */
 .skip-to-main {
     position: absolute;
     left: -9999px;
@@ -822,13 +809,11 @@ button:focus-visible {
     top: var(--spacing-sm);
 }
 
-/* Focus visible for all interactive elements */
 *:focus-visible {
     outline: 2px solid var(--cu-gold);
     outline-offset: 2px;
 }
 
-/* Ensure sufficient color contrast */
 ::selection {
     background-color: var(--cu-gold);
     color: var(--cu-black);
@@ -881,33 +866,53 @@ button:focus-visible {
    Responsive Design - Mobile (max-width: 768px)
    ============================================ */
 @media (max-width: 768px) {
-    /* Hero Section Mobile */
-    .hero-section.hero-with-bg {
+    .cu-logo {
+        height: 40px;
+    }
+    
+    .brand-text h1 {
+        font-size: 1.25rem;
+    }
+    
+    .brand-text .subtext {
+        font-size: 0.75rem;
+    }
+    
+    .main-nav {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .nav-menu li a {
+        font-size: 1rem;
+    }
+    
+    .portrait-section.portrait-with-bg {
         min-height: auto;
         padding: var(--spacing-md) 0;
+        display: block;
     }
     
-    /* ⭐ UPDATED: Mobile hero image maintains spacing */
-    .hero-image-bg {
-        width: 100%;
-        height: 400px;
+    .portrait-image-bg {
         position: relative;
+        width: 100%;
+        height: 300px;
+        padding: 0;
         margin-bottom: var(--spacing-md);
-        padding: var(--spacing-md); /* Reduced padding for mobile */
     }
     
-    .hero-image-bg img {
-        object-position: center 30%;
-        border-radius: 8px;
+    .portrait-image-bg img {
+        object-position: center center;
+        border-radius: 0;
+        box-shadow: none;
     }
     
-    /* ⭐ UPDATED: Mobile text box full width */
-    .hero-section.hero-with-bg .hero-text {
+    .portrait-section.portrait-with-bg .portrait-text {
         max-width: 100%;
         padding: var(--spacing-md);
+        background-color: var(--cu-white);
+        box-shadow: none;
     }
     
-    /* Banner mobile layout */
     .banner-content {
         grid-template-columns: 1fr;
     }
@@ -921,7 +926,6 @@ button:focus-visible {
         margin-top: 0;
     }
     
-    /* Navigation */
     .nav-toggle {
         display: flex;
     }
@@ -962,7 +966,6 @@ button:focus-visible {
         background-color: var(--cu-light-gray);
     }
     
-    /* Typography */
     .hero-text h2 {
         font-size: 1.75rem;
     }
@@ -983,7 +986,6 @@ button:focus-visible {
         font-size: 1rem;
     }
     
-    /* Layout adjustments */
     .container {
         padding: 0 var(--spacing-sm);
     }
@@ -1011,24 +1013,17 @@ button:focus-visible {
     .about-secondary-image {
         width: 100%;
     }
+    
+    .footer-logo-box {
+        width: 250px;
+        height: 140px;
+    }
 }
 
 /* ============================================
    Responsive Design - Small Mobile (max-width: 480px)
    ============================================ */
 @media (max-width: 480px) {
-    .cu-logo {
-        height: 40px;
-    }
-    
-    .brand-text h1 {
-        font-size: 1.25rem;
-    }
-    
-    .brand-text .subtext {
-        font-size: 0.75rem;
-    }
-    
     .hero-text h2 {
         font-size: 1.5rem;
     }
@@ -1045,12 +1040,8 @@ button:focus-visible {
         grid-template-columns: 1fr;
     }
     
-    .footer-logo-box img {
-        width: 150px;
-    }
-    
-    .hero-image-bg {
-        height: 300px;
+    .portrait-image-bg {
+        height: 250px;
     }
 }
 
@@ -1058,7 +1049,6 @@ button:focus-visible {
    Reduced Motion & Accessibility
    ============================================ */
 
-/* Reduced motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -1070,7 +1060,6 @@ button:focus-visible {
     }
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: high) {
     .btn {
         border-width: 3px;

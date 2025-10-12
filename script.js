@@ -1,6 +1,4 @@
-// CU Nordic Ski Club - Main JavaScript
-
-const DEBUG = false; // Set to true for development logging
+const DEBUG = false;
 
 class NavigationController {
     constructor() {
@@ -14,10 +12,8 @@ class NavigationController {
     }
     
     init() {
-        // Click event for toggle button
         this.navToggle.addEventListener('click', () => this.toggleMenu());
         
-        // Keyboard support (Enter and Space)
         this.navToggle.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -25,28 +21,24 @@ class NavigationController {
             }
         });
         
-        // Close menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.main-nav')) {
                 this.closeMenu();
             }
         });
         
-        // Close menu when pressing Escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 this.closeMenu();
             }
         });
         
-        // Close menu on window resize to desktop size
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
                 this.closeMenu();
             }
         });
         
-        // Swipe gesture support for mobile
         this.initSwipeGestures();
     }
     
@@ -87,7 +79,6 @@ class NavigationController {
         this.navMenu.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
             if (touchStartX - touchEndX > 50) {
-                // Swiped left - close menu
                 this.closeMenu();
             }
         }, { passive: true });
@@ -104,7 +95,6 @@ class NavigationController {
     }
 }
 
-// Privacy Notice Controller
 class PrivacyController {
     constructor() {
         this.notice = document.getElementById('privacy-notice');
@@ -117,7 +107,6 @@ class PrivacyController {
     }
     
     init() {
-        // Check if user has already accepted
         const hasAccepted = this.getPrivacyConsent();
         
         if (DEBUG) console.log('Privacy consent status:', hasAccepted);
@@ -127,11 +116,9 @@ class PrivacyController {
             this.showNotice();
         } else {
             if (DEBUG) console.log('Privacy already accepted, hiding notice');
-            // Ensure notice stays hidden if already accepted
             this.notice.setAttribute('hidden', '');
         }
         
-        // Event listeners
         if (this.acceptBtn) {
             this.acceptBtn.addEventListener('click', () => this.acceptPrivacy());
         }
@@ -142,13 +129,10 @@ class PrivacyController {
     }
     
     showNotice() {
-        // Remove hidden attribute first
         this.notice.removeAttribute('hidden');
         
-        // Force a reflow 
         this.notice.offsetHeight;
         
-        // Then add visible class with a slight delay
         setTimeout(() => {
             this.notice.classList.add('visible');
             this.notice.setAttribute('aria-hidden', 'false');
@@ -169,14 +153,12 @@ class PrivacyController {
             const consent = localStorage.getItem('privacyConsent');
             if (consent) {
                 const { accepted, timestamp } = JSON.parse(consent);
-                // Consent expires after 1 year
                 if (Date.now() - timestamp < 31536000000) {
                     return accepted;
                 }
             }
         } catch (e) {
             console.error('Error reading privacy consent from localStorage:', e);
-            // Fail safely by requiring new consent
             return false;
         }
         return false;
@@ -269,7 +251,6 @@ class PrivacyController {
         
         const closeModal = () => {
             modal.remove();
-            // Return focus to the button that opened the modal
             if (this.viewBtn) {
                 this.viewBtn.focus();
             }
@@ -287,12 +268,10 @@ class PrivacyController {
             }
         });
         
-        // Focus the close button for accessibility
         document.getElementById('close-privacy-modal').focus();
     }
 }
 
-// Data Management Controller
 class DataManagement {
     constructor() {
         this.init();
@@ -303,20 +282,14 @@ class DataManagement {
     }
     
     createDataControls() {
-        const footer = document.querySelector('.site-footer .container');
-        if (!footer) return;
+        const footerRight = document.querySelector('.footer-right');
+        if (!footerRight) return;
         
         const dataSection = document.createElement('div');
         dataSection.className = 'data-controls';
-        dataSection.style.cssText = `
-            margin-top: 2rem;
-            padding: 1rem;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-        `;
         
         dataSection.innerHTML = `
-            <h3 style="font-size: 1rem; margin-bottom: 0.5rem; color: #000;">Manage Your Data</h3>
+            <h3 style="font-size: 1.5rem; font-weight: var(--font-weight-bold); margin-bottom: 0.5rem; color: #000;">Manage Your Data</h3>
             <p style="font-size: 0.875rem; margin-bottom: 1rem; color: #000;">You have full control over the data stored on your device.</p>
             <div class="data-actions" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                 <button id="clear-all-data" class="btn btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 1rem; min-height: 40px;" aria-label="Clear all stored data from this website">Clear My Data</button>
@@ -324,7 +297,7 @@ class DataManagement {
             </div>
         `;
         
-        footer.appendChild(dataSection);
+        footerRight.appendChild(dataSection);
         
         document.getElementById('clear-all-data').addEventListener('click', () => this.clearAllData());
         document.getElementById('view-stored-data').addEventListener('click', () => this.viewStoredData());
@@ -418,7 +391,6 @@ class DataManagement {
                 }
             });
             
-            // Focus the close button
             document.getElementById('close-data-modal').focus();
         } catch (e) {
             console.error('Error viewing data:', e);
@@ -427,7 +399,6 @@ class DataManagement {
     }
 }
 
-// Smooth Scroll for Anchor Links
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -442,11 +413,9 @@ function initSmoothScroll() {
                     block: 'start'
                 });
                 
-                // Set focus for accessibility
                 target.setAttribute('tabindex', '-1');
                 target.focus();
                 
-                // Update URL without scrolling
                 if (history.pushState) {
                     history.pushState(null, null, href);
                 }
@@ -455,19 +424,11 @@ function initSmoothScroll() {
     });
 }
 
-// Initialize All Controllers
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        // Initialize navigation
         new NavigationController();
-        
-        // Initialize privacy controls
         new PrivacyController();
-        
-        // Initialize data management
         new DataManagement();
-        
-        // Initialize smooth scrolling
         initSmoothScroll();
         
         if (DEBUG) console.log('CU Nordic Ski Club website initialized successfully');
