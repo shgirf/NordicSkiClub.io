@@ -1,14 +1,7 @@
-// ============================================
 // CU Nordic Ski Club - Main JavaScript
-// Handles navigation, accessibility, and data persistence
-// Production Version with Enhanced Error Handling
-// ============================================
 
 const DEBUG = false; // Set to true for development logging
 
-// ============================================
-// Mobile Navigation Toggle
-// ============================================
 class NavigationController {
     constructor() {
         this.navToggle = document.querySelector('.nav-toggle');
@@ -111,9 +104,7 @@ class NavigationController {
     }
 }
 
-// ============================================
 // Privacy Notice Controller
-// ============================================
 class PrivacyController {
     constructor() {
         this.notice = document.getElementById('privacy-notice');
@@ -154,7 +145,7 @@ class PrivacyController {
         // Remove hidden attribute first
         this.notice.removeAttribute('hidden');
         
-        // Force a reflow to ensure the element is rendered
+        // Force a reflow 
         this.notice.offsetHeight;
         
         // Then add visible class with a slight delay
@@ -257,7 +248,7 @@ class PrivacyController {
             <ul style="margin-bottom: 1rem; margin-left: 1.5rem;">
                 <li>Privacy consent: Up to 1 year</li>
             </ul>
-            <p style="margin-bottom: 1rem;"><strong>Important:</strong> No data is ever sent to external servers. Everything stays on your device.</p>
+            <p style="margin-bottom: 1rem;"><strong>Important:</strong> No data is ever sent to external servers. Everything stays on your device except for form submissions.</p>
             
             <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Your Controls</h3>
             <p style="margin-bottom: 1rem;">You have complete control over your data:</p>
@@ -301,9 +292,7 @@ class PrivacyController {
     }
 }
 
-// ============================================
 // Data Management Controller
-// ============================================
 class DataManagement {
     constructor() {
         this.init();
@@ -438,9 +427,7 @@ class DataManagement {
     }
 }
 
-// ============================================
 // Smooth Scroll for Anchor Links
-// ============================================
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -468,9 +455,7 @@ function initSmoothScroll() {
     });
 }
 
-// ============================================
 // Initialize All Controllers
-// ============================================
 document.addEventListener('DOMContentLoaded', () => {
     try {
         // Initialize navigation

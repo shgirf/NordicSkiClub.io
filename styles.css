@@ -9,7 +9,6 @@
    CSS Reset & Base Styles
    ============================================ */
 
-/* Utility Classes */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -239,8 +238,7 @@ button:focus-visible {
    Home Page Sections
    ============================================ */
 
-/* Hero Section with Background Image */
-.hero-section.hero-with-bg {
+.portrait-section.portrait-with-bg {
     position: relative;
     padding: var(--spacing-xl) 0;
     min-height: 600px;
@@ -249,38 +247,36 @@ button:focus-visible {
     overflow: hidden;
 }
 
-/* ⭐ UPDATED: Hero Image with spacing and matching width */
-.hero-image-bg {
+.portrait-image-bg {
     position: absolute;
     top: 0;
     right: 0;
     width: 50%;
     height: 100%;
-    padding: var(--spacing-lg); /* Added spacing buffer */
+    padding: var(--spacing-lg); 
     z-index: 0;
 }
 
-.hero-image-bg img {
+.portrait-image-bg img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center center;
-    border-radius: 8px; /* Rounded corners to show the spacing */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Subtle shadow to emphasize spacing */
+    border-radius: 8px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); 
 }
 
-.hero-section.hero-with-bg .container {
+.portrait-section.portrait-with-bg .container {
     position: relative;
     z-index: 1;
 }
 
-.hero-section.hero-with-bg .hero-content {
+.portrait-section.portrait-with-bg .portrait-content {
     display: block;
 }
 
-/* ⭐ UPDATED: Text box now matches image width (both 50% minus spacing) */
-.hero-section.hero-with-bg .hero-text {
-    max-width: calc(50% - var(--spacing-lg)); /* Matches image width after spacing */
+.portrait-section.portrait-with-bg .portrait-text {
+    max-width: calc(50% - var(--spacing-lg)); 
     background-color: rgba(255, 255, 255, 0.95);
     padding: var(--spacing-lg);
     border-radius: 8px;
@@ -299,18 +295,18 @@ button:focus-visible {
     align-items: center;
 }
 
-.hero-text {
+.portrait-text {
     flex: 1;
 }
 
-.hero-text h2 {
+.portrait-text h2 {
     font-size: 2.5rem;
     font-weight: var(--font-weight-bold);
     margin-bottom: var(--spacing-md);
     color: var(--cu-black);
 }
 
-.hero-text p {
+.portrait-text p {
     font-size: 1.125rem;
     line-height: 1.8;
     margin-bottom: var(--spacing-sm);
@@ -321,7 +317,7 @@ button:focus-visible {
     flex: 1;
 }
 
-.hero-image img {
+.portrait-image img {
     width: 100%;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -401,7 +397,7 @@ button:focus-visible {
 }
 
 /* ============================================
-   Footer - CONSISTENT LAYOUT
+   Footer
    ============================================ */
 .site-footer {
     background-color: var(--cu-gold);
@@ -416,21 +412,27 @@ button:focus-visible {
     gap: var(--spacing-lg);
 }
 
-/* Logo Box - Always on LEFT */
 .footer-logo-box {
     flex-shrink: 0;
     background-color: #f1ebd9;
     padding: var(--spacing-md);
     border-radius: 16px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 220px; 
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; 
 }
 
 .footer-logo-box img {
-    width: 200px;
-    height: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
 }
 
-/* Footer Right Section */
 .footer-right {
     flex: 1;
     display: flex;
