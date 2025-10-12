@@ -55,6 +55,13 @@
             <div class="container">
                 <div class="form-container">
                     <h2 style="text-align: center; margin-bottom: 1.5rem;">Membership Application</h2>
+                    
+                    <!-- ⭐ ADD THIS: Privacy disclaimer for Google Forms -->
+                    <div style="text-align: center; font-size: 0.875rem; color: var(--cu-gray); margin-bottom: 1.5rem; padding: 1rem; background-color: #fff3cd; border-radius: 8px; border-left: 4px solid var(--cu-gold);">
+                        <strong>Privacy Notice:</strong> This form is hosted by Google. By submitting, you acknowledge that your data will be processed according to <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style="text-decoration: underline; color: #1a0dab;">Google's Privacy Policy</a>. We only collect information necessary for club membership and will never share it with third parties.
+                    </div>
+                    
+                    <!-- ⭐ ENHANCED: Better iframe accessibility with fallback -->
                     <iframe 
                         src="https://docs.google.com/forms/d/e/1FAIpQLSf2kVGtd-CehdI-VY4NMi1wFRA6dRvnCuGsDseIwb7Nw9-Nlw/viewform?embedded=true" 
                         width="100%" 
@@ -62,8 +69,9 @@
                         frameborder="0" 
                         marginheight="0" 
                         marginwidth="0"
-                        title="Membership Application Form">
-                        Loading…
+                        title="CU Nordic Ski Club Membership Application Form"
+                        aria-label="Membership application form - you will be redirected to Google Forms">
+                        <p>Your browser does not support iframes. <a href="https://docs.google.com/forms/d/e/1FAIpQLSf2kVGtd-CehdI-VY4NMi1wFRA6dRvnCuGsDseIwb7Nw9-Nlw/viewform" target="_blank" rel="noopener noreferrer">Open the membership form in a new window</a>.</p>
                     </iframe>
                 </div>
             </div>
@@ -108,6 +116,25 @@
         </div>
     </footer>
 
+        <!-- Privacy Notice -->
+    <div id="privacy-notice" class="privacy-notice" role="dialog" aria-labelledby="privacy-title" hidden>
+        <div class="privacy-content">
+            <h3 id="privacy-title">Your Privacy Matters</h3>
+            <p>This website uses browser storage to remember your preferences and improve your experience. We collect:</p>
+            <ul>
+                <li>Your navigation preferences (menu state)</li>
+                <li>Your consent preferences</li>
+            </ul>
+            <p>All data is stored locally on your device and is never sent to external servers. You have full control over your data.</p>
+            <div class="privacy-actions">
+                <button id="accept-privacy" class="btn btn-primary">Accept</button>
+                <button id="view-privacy" class="btn btn-secondary">View Full Privacy Statement</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
+</body>
+</html>
 </body>
 </html>

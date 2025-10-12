@@ -1,7 +1,10 @@
 // ============================================
 // CU Nordic Ski Club - Main JavaScript
 // Handles navigation, accessibility, and data persistence
+// Production Version with Enhanced Error Handling
 // ============================================
+
+const DEBUG = false; // Set to true for development logging
 
 // ============================================
 // Mobile Navigation Toggle
@@ -49,6 +52,9 @@ class NavigationController {
                 this.closeMenu();
             }
         });
+        
+        // Swipe gesture support for mobile
+        this.initSwipeGestures();
     }
     
     toggleMenu() {
@@ -66,6 +72,7 @@ class NavigationController {
         this.navToggle.classList.add('active');
         this.navToggle.setAttribute('aria-expanded', 'true');
         this.body.style.overflow = 'hidden';
+        this.announceToScreenReader('Navigation menu opened');
     }
     
     closeMenu() {
@@ -73,6 +80,34 @@ class NavigationController {
         this.navToggle.classList.remove('active');
         this.navToggle.setAttribute('aria-expanded', 'false');
         this.body.style.overflow = '';
+        this.announceToScreenReader('Navigation menu closed');
+    }
+    
+    initSwipeGestures() {
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        this.navMenu.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        this.navMenu.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) {
+                // Swiped left - close menu
+                this.closeMenu();
+            }
+        }, { passive: true });
+    }
+    
+    announceToScreenReader(message) {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('role', 'status');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.className = 'sr-only';
+        announcement.textContent = message;
+        document.body.appendChild(announcement);
+        setTimeout(() => announcement.remove(), 1000);
     }
 }
 
@@ -94,13 +129,13 @@ class PrivacyController {
         // Check if user has already accepted
         const hasAccepted = this.getPrivacyConsent();
         
-        console.log('Privacy consent status:', hasAccepted);
+        if (DEBUG) console.log('Privacy consent status:', hasAccepted);
         
         if (!hasAccepted) {
-            console.log('Showing privacy notice...');
+            if (DEBUG) console.log('Showing privacy notice...');
             this.showNotice();
         } else {
-            console.log('Privacy already accepted, hiding notice');
+            if (DEBUG) console.log('Privacy already accepted, hiding notice');
             // Ensure notice stays hidden if already accepted
             this.notice.setAttribute('hidden', '');
         }
@@ -149,7 +184,9 @@ class PrivacyController {
                 }
             }
         } catch (e) {
-            console.warn('Could not read privacy consent:', e);
+            console.error('Error reading privacy consent from localStorage:', e);
+            // Fail safely by requiring new consent
+            return false;
         }
         return false;
     }
@@ -161,7 +198,8 @@ class PrivacyController {
                 timestamp: Date.now()
             }));
         } catch (e) {
-            console.warn('Could not save privacy consent:', e);
+            console.error('Error saving privacy consent to localStorage:', e);
+            alert('Unable to save privacy preferences. Please check your browser settings.');
         }
     }
     
@@ -230,7 +268,7 @@ class PrivacyController {
             </ul>
             
             <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">External Content</h3>
-            <p style="margin-bottom: 1rem;">This site may display embedded content (videos, social media). These embeds are governed by the privacy policies of their respective providers (YouTube, Instagram, etc.).</p>
+            <p style="margin-bottom: 1rem;">This site may display embedded content (videos, social media, forms). These embeds are governed by the privacy policies of their respective providers (YouTube, Instagram, Google Forms, etc.).</p>
             
             <button id="close-privacy-modal" style="margin-top: 1.5rem; padding: 0.75rem 1.5rem; background-color: #CFB87C; border: none; border-radius: 4px; cursor: pointer; font-weight: 500;">Close</button>
         `;
@@ -238,7 +276,13 @@ class PrivacyController {
         modal.appendChild(content);
         document.body.appendChild(modal);
         
-        const closeModal = () => modal.remove();
+        const closeModal = () => {
+            modal.remove();
+            // Return focus to the button that opened the modal
+            if (this.viewBtn) {
+                this.viewBtn.focus();
+            }
+        };
         
         document.getElementById('close-privacy-modal').addEventListener('click', closeModal);
         modal.addEventListener('click', (e) => {
@@ -252,6 +296,7 @@ class PrivacyController {
             }
         });
         
+        // Focus the close button for accessibility
         document.getElementById('close-privacy-modal').focus();
     }
 }
@@ -285,8 +330,8 @@ class DataManagement {
             <h3 style="font-size: 1rem; margin-bottom: 0.5rem; color: #000;">Manage Your Data</h3>
             <p style="font-size: 0.875rem; margin-bottom: 1rem; color: #000;">You have full control over the data stored on your device.</p>
             <div class="data-actions" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                <button id="clear-all-data" class="btn btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 1rem; min-height: 40px;">Clear My Data</button>
-                <button id="view-stored-data" class="btn btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 1rem; min-height: 40px;">View Stored Data</button>
+                <button id="clear-all-data" class="btn btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 1rem; min-height: 40px;" aria-label="Clear all stored data from this website">Clear My Data</button>
+                <button id="view-stored-data" class="btn btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 1rem; min-height: 40px;" aria-label="View what data is currently stored">View Stored Data</button>
             </div>
         `;
         
@@ -297,14 +342,15 @@ class DataManagement {
     }
     
     clearAllData() {
-        const confirmed = confirm('Are you sure you want to clear all stored data? This cannot be undone.');
+        const confirmed = confirm('Are you sure you want to clear all stored data? This action cannot be undone.');
         
         if (confirmed) {
             try {
                 localStorage.clear();
-                alert('All stored data has been cleared successfully.');
+                alert('All stored data has been cleared successfully. The page will now reload.');
                 window.location.reload();
             } catch (e) {
+                console.error('Error clearing data:', e);
                 alert('Error clearing data: ' + e.message);
             }
         }
@@ -319,6 +365,9 @@ class DataManagement {
             }
             
             const modal = document.createElement('div');
+            modal.setAttribute('role', 'dialog');
+            modal.setAttribute('aria-modal', 'true');
+            modal.setAttribute('aria-labelledby', 'stored-data-title');
             modal.style.cssText = `
                 position: fixed;
                 top: 0;
@@ -343,32 +392,47 @@ class DataManagement {
                 overflow-y: auto;
             `;
             
-            let dataHTML = '<h2 style="margin-bottom: 1rem;">Stored Data</h2>';
+            let dataHTML = '<h2 id="stored-data-title" style="margin-bottom: 1rem;">Stored Data</h2>';
             
             if (Object.keys(data).length === 0) {
-                dataHTML += '<p>No data is currently stored.</p>';
+                dataHTML += '<p>No data is currently stored on your device.</p>';
             } else {
                 dataHTML += '<ul style="list-style: none; padding: 0;">';
                 Object.keys(data).forEach(key => {
+                    const value = data[key];
+                    const displayValue = value.length > 100 ? value.substring(0, 100) + '...' : value;
                     dataHTML += `<li style="margin-bottom: 1rem; padding: 0.5rem; background: #f5f5f5; border-radius: 4px;">
                         <strong>${key}:</strong><br>
-                        <code style="font-size: 0.875rem; word-break: break-all;">${data[key].substring(0, 100)}${data[key].length > 100 ? '...' : ''}</code>
+                        <code style="font-size: 0.875rem; word-break: break-all;">${displayValue}</code>
                     </li>`;
                 });
                 dataHTML += '</ul>';
             }
             
-            dataHTML += '<button id="close-data-modal" style="margin-top: 1rem; padding: 0.75rem 1.5rem; background-color: #CFB87C; border: none; border-radius: 4px; cursor: pointer;">Close</button>';
+            dataHTML += '<button id="close-data-modal" class="btn btn-primary" style="margin-top: 1rem;">Close</button>';
             
             content.innerHTML = dataHTML;
             modal.appendChild(content);
             document.body.appendChild(modal);
             
-            document.getElementById('close-data-modal').addEventListener('click', () => modal.remove());
+            const closeModal = () => modal.remove();
+            
+            document.getElementById('close-data-modal').addEventListener('click', closeModal);
             modal.addEventListener('click', (e) => {
-                if (e.target === modal) modal.remove();
+                if (e.target === modal) closeModal();
             });
+            
+            document.addEventListener('keydown', function escapeHandler(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                    document.removeEventListener('keydown', escapeHandler);
+                }
+            });
+            
+            // Focus the close button
+            document.getElementById('close-data-modal').focus();
         } catch (e) {
+            console.error('Error viewing data:', e);
             alert('Error viewing data: ' + e.message);
         }
     }
@@ -391,8 +455,14 @@ function initSmoothScroll() {
                     block: 'start'
                 });
                 
+                // Set focus for accessibility
                 target.setAttribute('tabindex', '-1');
                 target.focus();
+                
+                // Update URL without scrolling
+                if (history.pushState) {
+                    history.pushState(null, null, href);
+                }
             }
         });
     });
@@ -402,17 +472,21 @@ function initSmoothScroll() {
 // Initialize All Controllers
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize navigation
-    new NavigationController();
-    
-    // Initialize privacy controls
-    new PrivacyController();
-    
-    // Initialize data management
-    new DataManagement();
-    
-    // Initialize smooth scrolling
-    initSmoothScroll();
-    
-    console.log('CU Nordic Ski Club website initialized successfully');
+    try {
+        // Initialize navigation
+        new NavigationController();
+        
+        // Initialize privacy controls
+        new PrivacyController();
+        
+        // Initialize data management
+        new DataManagement();
+        
+        // Initialize smooth scrolling
+        initSmoothScroll();
+        
+        if (DEBUG) console.log('CU Nordic Ski Club website initialized successfully');
+    } catch (error) {
+        console.error('Error initializing website:', error);
+    }
 });
