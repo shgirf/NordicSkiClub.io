@@ -282,14 +282,20 @@ class DataManagement {
     }
     
     createDataControls() {
-        const footerRight = document.querySelector('.footer-right');
-        if (!footerRight) return;
+        const footer = document.querySelector('.site-footer .container');
+        if (!footer) return;
         
         const dataSection = document.createElement('div');
         dataSection.className = 'data-controls';
+        dataSection.style.cssText = `
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        `;
         
         dataSection.innerHTML = `
-            <h3 style="font-size: 1.5rem; font-weight: var(--font-weight-bold); margin-bottom: 0.5rem; color: #000;">Manage Your Data</h3>
+            <h3 style="font-size: 1rem; margin-bottom: 0.5rem; color: #000;">Manage Your Data</h3>
             <p style="font-size: 0.875rem; margin-bottom: 1rem; color: #000;">You have full control over the data stored on your device.</p>
             <div class="data-actions" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                 <button id="clear-all-data" class="btn btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 1rem; min-height: 40px;" aria-label="Clear all stored data from this website">Clear My Data</button>
@@ -297,7 +303,7 @@ class DataManagement {
             </div>
         `;
         
-        footerRight.appendChild(dataSection);
+        footer.appendChild(dataSection);
         
         document.getElementById('clear-all-data').addEventListener('click', () => this.clearAllData());
         document.getElementById('view-stored-data').addEventListener('click', () => this.viewStoredData());

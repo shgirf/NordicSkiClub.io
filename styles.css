@@ -406,21 +406,19 @@ button:focus-visible {
 
 .footer-logo-box {
     flex-shrink: 0;
-    background-color: #f1ebd9;
-    padding: var(--spacing-md);
+    background-color: #ffffff;
+    padding: 0.75rem;
     border-radius: 16px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    width: 330px;
-    height: 180px;
+    width: 220px; 
+    height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: visible;
-}
-
-.footer-logo-box img {
-    width: 90%;
-    height: 90%;
+    overflow: hidden; 
+}.footer-logo-box img {
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     display: block;
 }
@@ -466,28 +464,27 @@ button:focus-visible {
 }
 
 .data-controls {
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: var(--spacing-sm);
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    margin-top: 0;
 }
 
 .data-controls h3 {
-    font-size: 1.5rem;
-    font-weight: var(--font-weight-bold);
-    margin-bottom: var(--spacing-sm);
-    color: var(--cu-black);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #000;
 }
 
 .data-controls p {
     font-size: 0.875rem;
-    margin-bottom: var(--spacing-sm);
-    color: var(--cu-black);
+    margin-bottom: 1rem;
+    color: #000;
 }
 
 .data-actions {
     display: flex;
-    gap: var(--spacing-xs);
+    gap: 0.5rem;
     flex-wrap: wrap;
 }
 
@@ -1012,11 +1009,6 @@ button:focus-visible {
     
     .about-secondary-image {
         width: 100%;
-    }
-    
-    .footer-logo-box {
-        width: 250px;
-        height: 140px;
     }
 }
 
